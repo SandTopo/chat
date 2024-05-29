@@ -76,10 +76,11 @@ io.on('connection', (socket) => {
         })
     //chat privado
         socket.on('privado', (privado) => {
+            //let player2=datos.userId;
             console.log(privado);
             const userprivado={_id,name,privado}
             //socket.broadcast.emit('mensaje', usermensaje);
-            io.emit('privados', userprivado);
+            io.emit('privado', userprivado);
 
         })
 
@@ -153,6 +154,6 @@ app.get("/juego", isAuthenticated,async (req, res) => {
     res.render("juego",{user:{_id,name},partidas});
 })
 
-server.listen(PORT, () => {
+server.listen(PORT, "0.0.0.0", () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
 });

@@ -1,9 +1,25 @@
 <%- include('partials/navbar') %>
+    
     <div class="row">
         <div class="col-sm-8">
             <input type="text" name="" id="texto" placeholder="Mensaje">
-            <input type="text" name="" id="texto" placeholder="Privado">
             <button id="btnEnviar">Enviar</button>
+            <br>
+            <input type="text" name="" id="textop" placeholder="Privado">
+            <h2>para</h2>
+            <div id="menuToggle">
+                <input type="checkbox" />
+                <span></span>
+                <span></span>
+                <span></span>
+                <ul id="menu">
+                    <a href="#"><li>Home</li></a>
+                    <ul class="list-group" id="connectedUsers"></ul>
+                   </ul>
+              </div>
+            
+            <button id="btnEnviarP">Enviar</button>
+
             <h3>Chat general</h3>
             <div id="chatgeneral">
 

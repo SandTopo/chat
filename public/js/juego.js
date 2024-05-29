@@ -9,7 +9,7 @@ socket.on('mensaje', (datos) => {
     p.innerText = datos.name + ": " + datos.mensaje;
     document.getElementById("chatgeneral").appendChild(p);
 })
-socket.on('privados', (datos) => {
+/*socket.on('privados', (datos) => {
     const p = document.createElement('p');
     p.innerText = datos;
     document.getElementById("chatprivado").appendChild(p);
@@ -19,6 +19,13 @@ socket.on('privados', (datos) => {
     li.classList.add('list-group-item');
     document.getElementById("partidasPendientes").appendChild(li);
 
+})*/
+
+  
+socket.on('privado', (datos) => {
+    const p = document.createElement('p');
+    p.innerText = datos.name + ": " + datos.privado;
+    document.getElementById("chatprivado").appendChild(p);
 })
 socket.on('usuarios', (datos) => {
     connectedUsers.innerHTML = "";
@@ -51,4 +58,10 @@ document.getElementById("btnEnviar").onclick = () => {
     let texto = document.getElementById("texto").value;
     document.getElementById("texto").value = "";
     socket.emit("mensaje", texto);
+}
+
+document.getElementById("btnEnviarP").onclick = () => {
+    let texto2 = document.getElementById("textop").value;
+    document.getElementById("textop").value = "";
+    socket.emit("privado", texto2);
 }
