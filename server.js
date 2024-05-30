@@ -76,24 +76,26 @@ io.on('connection', (socket) => {
         })
     //chat privado
         socket.on('privado', (privado) => {
-            //let player2=datos.userId;
+            let a="1";
             console.log(privado);
-            const userprivado={_id,name,privado}
+            const userprivado={_id,name,privado,a}
             //socket.broadcast.emit('mensaje', usermensaje);
-            io.emit('privado', userprivado);
-
+            //io.emit('privado', userprivado);
+            let mensajeP=privado.texto
+            io.to(privado.socketId).emit("privado",{_id,name,mensajeP})
         })
 
-        socket.on('invitaciones', async (datos)=>{
+        socket.on('invitaciones', async (datos, privado)=>{
            let player1=_id;
            let player2=datos.userId;
-           let estado='pendiente';
 
-            let partida = new Partida({ player1,player2,estado });
+            let partida = new Partida({ player1,player2 });
             try {
                 await partida.save();  
-                io.to(datos.socketID).emit("privados",{partida,name})
-                console.log(partida)
+                
+                const userprivado={_id,name,privado}
+                io.to(datos.socketID).emit("privado",{_id,name,privado})
+                console.log(privado)
             } catch (error) {      
                console.log(error)
             }

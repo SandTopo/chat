@@ -21,11 +21,12 @@ socket.on('mensaje', (datos) => {
 
 })*/
 
-  
+
 socket.on('privado', (datos) => {
     const p = document.createElement('p');
-    p.innerText = datos.name + ": " + datos.privado;
+    p.innerText = datos.name + ": " + datos.mensajeP;
     document.getElementById("chatprivado").appendChild(p);
+    console.log(privado);
 })
 socket.on('usuarios', (datos) => {
     connectedUsers.innerHTML = "";
@@ -45,7 +46,10 @@ socket.on('usuarios', (datos) => {
                 console.log(datos)
                 socket.emit("invitaciones", datos);
             }
-            connectedUsers.appendChild(li);
+            const option = document.createElement("option")
+            option.setAttribute('data-socketId', user.socketId);
+            option.innerText = user.name
+            connectedUsers.appendChild(option);
         }
     });
 
@@ -62,6 +66,11 @@ document.getElementById("btnEnviar").onclick = () => {
 
 document.getElementById("btnEnviarP").onclick = () => {
     let texto2 = document.getElementById("textop").value;
+    var select = document.getElementById('connectedUsers');
+    // Opción seleccionada
+    var opcionSeleccionada = select.options[select.selectedIndex];
+    // Leer el atributo data-socketid
+    var socketId = opcionSeleccionada.getAttribute('data-socketid');
     document.getElementById("textop").value = "";
-    socket.emit("privado", texto2);
+    socket.emit("privado", { 'texto': texto2, 'socketId': socketId });
 }
