@@ -27,21 +27,10 @@
             </div>
         </div>
         <div class="col-sm-4">
-            <h4>Usuarios conectados</h4>
+            <h4>Chat grupal</h4>
             <ul class="list-group" id="connectedUsers"></ul>
             <hr>
-            <h4>Partidas Pendientes</h4>
-            <ul class="list-group" id="partidasPendientes">
-                <% for(let i=0; i < partidas.length; i++) { %>
-                    <li id="<%= partidas[i]._id %>" class="list-group-item">
-                        <%= partidas[i].player1 %>
-                    </li>
-                    <% } %>
-            </ul>
-            <h4>Partidas enviadas</h4>
-            <ul class="list-group" id="partidasEnviadas">
-
-            </ul>
+            
         </div>
     </div>
 
