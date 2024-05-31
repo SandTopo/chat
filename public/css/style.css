@@ -9,12 +9,27 @@
     border: 1px solid black;
 }
 body{
+    
     background-color: rgb(135, 151, 151);
-    background-image: url('img/perro.png');
+}
+#bodyIn{
+    background-image: url("/img/perro.png");
+    background-size: 100% 600%;
+    width:50%; 
+    margin-left:auto; 
+    margin-right:auto; 
+    text-align: center;
 }
 .container-fluid{
     background-color: rgb(135, 151, 151);
 }
 .navbar{
     padding: 0%;
+}
+#cosa{
+    width: 100%;
+    height: 200px;
+    background-color: aliceblue;
+    border: 1px solid black;
+    opacity: 0.9;
 }
