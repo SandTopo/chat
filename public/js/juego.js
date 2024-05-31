@@ -9,7 +9,7 @@ socket.on('mensaje', (datos) => {
     p.innerText = datos.name + ": " + datos.mensaje;
     document.getElementById("chatgeneral").appendChild(p);
 })
-socket.on('privados', (datos) => {
+/*socket.on('privados', (datos) => {
     const p = document.createElement('p');
     p.innerText = datos;
     document.getElementById("chatprivado").appendChild(p);
@@ -19,6 +19,14 @@ socket.on('privados', (datos) => {
     li.classList.add('list-group-item');
     document.getElementById("partidasPendientes").appendChild(li);
 
+})*/
+
+
+socket.on('privado', (datos) => {
+    const p = document.createElement('p');
+    p.innerText = datos.name + ": " + datos.mensajeP;
+    document.getElementById("chatprivado").appendChild(p);
+    console.log(privado);
 })
 socket.on('usuarios', (datos) => {
     connectedUsers.innerHTML = "";
@@ -38,7 +46,10 @@ socket.on('usuarios', (datos) => {
                 console.log(datos)
                 socket.emit("invitaciones", datos);
             }
-            connectedUsers.appendChild(li);
+            const option = document.createElement("option")
+            option.setAttribute('data-socketId', user.socketId);
+            option.innerText = user.name
+            connectedUsers.appendChild(option);
         }
     });
 
@@ -46,9 +57,39 @@ socket.on('usuarios', (datos) => {
     //console.log(datos);
 })
 
+socket.on('chat', (datos) =>{
+    groupList.innerHTML = "";
+    datos.forEach(chat =>{
+        if(!document.getElementById(chat._id)) {
+            const lo = document.createElement('lo');
+            lo.id = chat.socketId;
+            lo.setAttribute('data-id',chat._id);
+            lo.textContent = chat.admin;
+            li.classList.add('list-group-item');
+            lo.onclick = (e) => {
+                console.log(datos)
+            }
+        }
+    })
+})
+
 
 document.getElementById("btnEnviar").onclick = () => {
     let texto = document.getElementById("texto").value;
     document.getElementById("texto").value = "";
     socket.emit("mensaje", texto);
+}
+
+document.getElementById("btnEnviarP").onclick = () => {
+    let texto2 = document.getElementById("textop").value;
+    var select = document.getElementById('connectedUsers');
+    // Opción seleccionada
+    var opcionSeleccionada = select.options[select.selectedIndex];
+    // Leer el atributo data-socketid
+    var socketId = opcionSeleccionada.getAttribute('data-socketid');
+    document.getElementById("textop").value = "";
+    socket.emit("privado", { 'texto': texto2, 'socketId': socketId });
+}
+document.getElementById("makeGroup").onclick = () => {
+
 }

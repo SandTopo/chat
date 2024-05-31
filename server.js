@@ -5,6 +5,9 @@ const path = require('path');
 const mongoose = require("mongoose")
 const User = require('./models/user');
 const Partida = require('./models/partida');
+const Chat = require('./models/chat');
+const UInvitado = require('./models/invitado');
+const Mensaje = require('./models/mensaje');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const isAuthenticated = require('./middleware/authenticated');
@@ -76,26 +79,33 @@ io.on('connection', (socket) => {
         })
     //chat privado
         socket.on('privado', (privado) => {
+            let a="1";
             console.log(privado);
-            const userprivado={_id,name,privado}
+            const userprivado={_id,name,privado,a}
             //socket.broadcast.emit('mensaje', usermensaje);
-            io.emit('privados', userprivado);
-
+            //io.emit('privado', userprivado);
+            let mensajeP=privado.texto
+            io.to(privado.socketId).emit("privado",{_id,name,mensajeP})
         })
 
-        socket.on('invitaciones', async (datos)=>{
+        socket.on('invitaciones', async (datos, privado)=>{
            let player1=_id;
            let player2=datos.userId;
-           let estado='pendiente';
 
-            let partida = new Partida({ player1,player2,estado });
+            let partida = new Partida({ player1,player2 });
             try {
                 await partida.save();  
-                io.to(datos.socketID).emit("privados",{partida,name})
-                console.log(partida)
+                
+                const userprivado={_id,name,privado}
+                io.to(datos.socketID).emit("privado",{_id,name,privado})
+                console.log(privado)
             } catch (error) {      
                console.log(error)
             }
+        })
+
+        socket.on('crearChat', async (datos)=>{
+            
         })
 
         
@@ -153,6 +163,6 @@ app.get("/juego", isAuthenticated,async (req, res) => {
     res.render("juego",{user:{_id,name},partidas});
 })
 
-server.listen(PORT, () => {
+server.listen(PORT, "0.0.0.0", () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
 });

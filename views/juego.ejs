@@ -1,9 +1,21 @@
 <%- include('partials/navbar') %>
-    <div class="row">
+
+    <div class="row" style="background-image: url(perro.png);">
         <div class="col-sm-8">
             <input type="text" name="" id="texto" placeholder="Mensaje">
-            <input type="text" name="" id="texto" placeholder="Privado">
             <button id="btnEnviar">Enviar</button>
+            <br>
+            <input type="text" name="" id="textop" placeholder="Privado">
+            <h5>para</h5>
+            <select style="display: inline;" class="list-group" id="connectedUsers">
+
+            </select>
+
+
+
+
+            <button id="btnEnviarP">Enviar</button>
+
             <h3>Chat general</h3>
             <div id="chatgeneral">
 
@@ -15,21 +27,17 @@
             </div>
         </div>
         <div class="col-sm-4">
-            <h4>Usuarios conectados</h4>
-            <ul class="list-group" id="connectedUsers"></ul>
+            <h4>Chat grupal</h4>
+            <h5>nombre del grupo: </h5>
+            
+
+            <button class="grupos" id="makeGroup">Crear nuevo grupo</button>
             <hr>
-            <h4>Partidas Pendientes</h4>
-            <ul class="list-group" id="partidasPendientes">
-                <% for(let i=0; i < partidas.length; i++) { %>
-                    <li id="<%= partidas[i]._id %>" class="list-group-item">
-                        <%= partidas[i].player1 %>
-                    </li>
-                    <% } %>
-            </ul>
-            <h4>Partidas enviadas</h4>
-            <ul class="list-group" id="partidasEnviadas">
-                
-            </ul>
+            <ul class="list-group" id="groupList"></ul>
+            <hr>
+            <h4>Nombre del chat</h4>
+            <div id="chatgrupal"></div>
+            
         </div>
     </div>
 
