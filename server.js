@@ -5,6 +5,9 @@ const path = require('path');
 const mongoose = require("mongoose")
 const User = require('./models/user');
 const Partida = require('./models/partida');
+const Chat = require('./models/chat');
+const UInvitado = require('./models/invitado');
+const Mensaje = require('./models/mensaje');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const isAuthenticated = require('./middleware/authenticated');
@@ -99,6 +102,10 @@ io.on('connection', (socket) => {
             } catch (error) {      
                console.log(error)
             }
+        })
+
+        socket.on('crearChat', async (datos)=>{
+            
         })
 
         

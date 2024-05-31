@@ -57,6 +57,22 @@ socket.on('usuarios', (datos) => {
     //console.log(datos);
 })
 
+socket.on('chat', (datos) =>{
+    groupList.innerHTML = "";
+    datos.forEach(chat =>{
+        if(!document.getElementById(chat._id)) {
+            const lo = document.createElement('lo');
+            lo.id = chat.socketId;
+            lo.setAttribute('data-id',chat._id);
+            lo.textContent = chat.admin;
+            li.classList.add('list-group-item');
+            lo.onclick = (e) => {
+                console.log(datos)
+            }
+        }
+    })
+})
+
 
 document.getElementById("btnEnviar").onclick = () => {
     let texto = document.getElementById("texto").value;
@@ -73,4 +89,7 @@ document.getElementById("btnEnviarP").onclick = () => {
     var socketId = opcionSeleccionada.getAttribute('data-socketid');
     document.getElementById("textop").value = "";
     socket.emit("privado", { 'texto': texto2, 'socketId': socketId });
+}
+document.getElementById("makeGroup").onclick = () => {
+
 }

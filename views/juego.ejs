@@ -1,12 +1,12 @@
 <%- include('partials/navbar') %>
 
-    <div class="row">
+    <div class="row" style="background-image: url(perro.png);">
         <div class="col-sm-8">
             <input type="text" name="" id="texto" placeholder="Mensaje">
             <button id="btnEnviar">Enviar</button>
             <br>
             <input type="text" name="" id="textop" placeholder="Privado">
-            <h2>para</h2>
+            <h5>para</h5>
             <select style="display: inline;" class="list-group" id="connectedUsers">
 
             </select>
@@ -28,8 +28,15 @@
         </div>
         <div class="col-sm-4">
             <h4>Chat grupal</h4>
-            <ul class="list-group" id="connectedUsers"></ul>
+            <h5>nombre del grupo: </h5>
+            
+
+            <button class="grupos" id="makeGroup">Crear nuevo grupo</button>
             <hr>
+            <ul class="list-group" id="groupList"></ul>
+            <hr>
+            <h4>Nombre del chat</h4>
+            <div id="chatgrupal"></div>
             
         </div>
     </div>
